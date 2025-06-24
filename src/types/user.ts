@@ -1,26 +1,47 @@
 import type { Movie } from "./movie"
-// ===== src/types/user.ts =====
+
+export interface User {
+    id: string
+    email: string
+    name: string
+    avatar?: string
+    createdAt: string
+    updatedAt: string
+}
+
+export interface UserPreferences {
+    theme: 'light' | 'dark'
+    language: string
+    country: string
+    region?: string
+    adult: boolean
+    notifications: boolean
+    autoPlay?: boolean
+    dataUsage?: string
+    favoriteGenres?: string[]
+    preferredLanguage?: string
+    darkMode?: boolean
+    autoplay?: boolean
+    highQualityImages?: boolean
+}
+
+export interface UserStats {
+    moviesWatched: number
+    totalWatchTime: number
+    averageRating: number
+    favoriteGenres: string[]
+    watchingStreak: number
+}
+
 export interface WatchlistItem {
     id: number
     movie: Movie
     addedAt: string
     watched: boolean
-    rating?: number
-    notes?: string
-}
-
-export interface UserPreferences {
-    favoriteGenres: number[]
-    preferredLanguage: string
-    darkMode: boolean
-    autoplay: boolean
-    highQualityImages: boolean
-}
-
-export interface UserStats {
-    totalMoviesWatched: number
-    totalMoviesInWatchlist: number
-    favoriteGenre: string
-    averageRating: number
-    watchTime: number // in minutes
+    watchedAt?: string
+    personalRating?: number
+    personalNotes?: string
+    priority?: 'high' | 'medium' | 'low'
+    tags?: string[]
+    category: 'to-watch' | 'watching' | 'watched' | 'favorites'
 }
