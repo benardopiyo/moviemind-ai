@@ -1,8 +1,8 @@
 // ===== src/features/discovery/RecommendationEngine.tsx =====
-import React, { useState, useEffect } from 'react'
-import { Brain, Star, Lightbulb, RefreshCw } from 'lucide-react'
+import React, { useState } from 'react'
+import { Brain, Lightbulb, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+// import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { MovieCard } from '@/components/common/MovieCard'
 import { LoadingSkeleton } from '@/components/common/LoadingSkeleton'
@@ -12,6 +12,7 @@ import { useApi } from '@/hooks/useApi'
 import { tmdbService } from '@/services/tmdb'
 import type { Movie, WatchlistItem } from '@/types/movie'
 import type { PaginatedResponse } from '@/types/api'
+import { cn } from '@/utils/helpers'
 
 interface RecommendationEngineProps {
   limit?: number
@@ -48,7 +49,7 @@ export const RecommendationEngine: React.FC<RecommendationEngineProps> = ({
   const getRandomWatchlistMovie = () => {
     if (watchlist.length === 0) return null
     const randomIndex = Math.floor(Math.random() * watchlist.length)
-    return watchlist[randomIndex].movie
+    return watchlist[randomIndex]?.movie
   }
 
   const favoriteGenres = getFavoriteGenres()
@@ -68,7 +69,7 @@ export const RecommendationEngine: React.FC<RecommendationEngineProps> = ({
       // Use genre-based discovery
       setRecommendationBasis('genre')
       const randomGenre = favoriteGenres[Math.floor(Math.random() * favoriteGenres.length)]
-      return () => tmdbService.discoverMovies({ genre: randomGenre, sortBy: 'vote_average.desc' })
+      return () => tmdbService.discoverMovies({ genre: randomGenre!, sortBy: 'vote_average.desc' })
     } else {
       // Fallback to popular
       setRecommendationBasis('popular')

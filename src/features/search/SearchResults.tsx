@@ -49,16 +49,19 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       {/* Results Grid */}
       <div className="grid-responsive">
         {movies.map((movie, index) => (
-          <MovieCard
+          <div
             key={`${movie.id}-${index}`}
-            movie={movie}
-            ref={index === movies.length - 1 ? lastElementRef : undefined}
-            showOverview={false}
-            className="animate-fade-in-up"
-            style={{
-              animationDelay: `${(index % 20) * 50}ms`,
-            }}
-          />
+            ref={index === movies.length - 1 ? lastElementRef : null}
+          >
+            <MovieCard
+              movie={movie}
+              showOverview={false}
+              className="animate-fade-in-up"
+              style={{
+                animationDelay: `${(index % 20) * 50}ms`,
+              }}
+            />
+          </div>
         ))}
       </div>
 

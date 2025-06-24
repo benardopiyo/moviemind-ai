@@ -68,7 +68,7 @@ export const Home: React.FC = () => {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Explore millions of movies with intelligent recommendations, detailed information, 
+                Explore millions of movies with intelligent recommendations, detailed information,
                 and personalized watchlists powered by AI.
               </p>
             </div>

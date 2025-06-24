@@ -1,6 +1,6 @@
 // ===== src/pages/Trending.tsx =====
 import React, { useState } from 'react'
-import { TrendingUp, Calendar, Star, Filter } from 'lucide-react'
+import { TrendingUp, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { MovieCard } from '@/components/common/MovieCard'

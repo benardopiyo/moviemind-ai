@@ -1,5 +1,4 @@
 // ===== src/App.tsx =====
-import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary'
 import { Layout } from '@/components/layout/Layout'

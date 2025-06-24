@@ -84,11 +84,11 @@ export default {
           '100%': { opacity: '1' },
         },
         fadeInUp: {
-          '0%': { 
+          '0%': {
             opacity: '0',
             transform: 'translateY(10px)'
           },
-          '100%': { 
+          '100%': {
             opacity: '1',
             transform: 'translateY(0)'
           },
@@ -143,7 +143,7 @@ export default {
     },
   },
   plugins: [
-    function({ addUtilities }) {
+    function ({ addUtilities }) {
       addUtilities({
         '.scrollbar-hide': {
           /* IE and Edge */
