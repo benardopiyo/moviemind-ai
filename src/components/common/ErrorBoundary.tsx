@@ -29,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo)
     this.setState({ errorInfo })
-    
+
     // Log to external service in production
     if (import.meta.env.PROD) {
       // Add error logging service here
@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: undefined, errorInfo: undefined })
+    this.setState({ hasError: false })
   }
 
   handleGoHome = () => {
@@ -58,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
                 <AlertTriangle className="w-10 h-10 text-red-600 dark:text-red-400" />
               </div>
-              
+
               <div className="space-y-2">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Oops! Something went wrong
@@ -66,7 +66,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <p className="text-gray-600 dark:text-gray-400 max-w-md">
                   We encountered an unexpected error. This has been logged and we're working to fix it.
                 </p>
-                
+
                 {import.meta.env.DEV && this.state.error && (
                   <details className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-left">
                     <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -85,10 +85,10 @@ export class ErrorBoundary extends Component<Props, State> {
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Try Again
                 </Button>
-                
+
                 {this.props.showHomeButton !== false && (
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={this.handleGoHome}
                     className="min-w-[120px]"
                   >
@@ -97,7 +97,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   </Button>
                 )}
               </div>
-              
+
               <p className="text-xs text-gray-500 dark:text-gray-500">
                 If this problem persists, please contact our support team.
               </p>

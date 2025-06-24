@@ -22,7 +22,7 @@ class CacheService {
     }
 
     this.cache.set(key, entry)
-    
+
     // Cleanup if cache is too large
     if (this.cache.size > this.maxSize) {
       this.evictOldest()
@@ -34,7 +34,7 @@ class CacheService {
    */
   get<T>(key: string): T | null {
     const entry = this.cache.get(key)
-    
+
     if (!entry) {
       return null
     }
@@ -68,12 +68,12 @@ class CacheService {
   has(key: string): boolean {
     const entry = this.cache.get(key)
     if (!entry) return false
-    
+
     if (Date.now() > entry.expiry) {
       this.cache.delete(key)
       return false
     }
-    
+
     return true
   }
 
@@ -84,7 +84,7 @@ class CacheService {
     const now = Date.now()
     const entries = Array.from(this.cache.entries())
     const expired = entries.filter(([, entry]) => now > entry.expiry).length
-    
+
     return {
       size: this.cache.size,
       expired,
@@ -111,11 +111,11 @@ class CacheService {
   private evictOldest(): void {
     const entries = Array.from(this.cache.entries())
     entries.sort(([, a], [, b]) => a.timestamp - b.timestamp)
-    
+
     // Remove oldest 10% of entries
     const toRemove = Math.floor(entries.length * 0.1) || 1
     for (let i = 0; i < toRemove; i++) {
-      this.cache.delete(entries[i][0])
+      if (entries[i]?.[0]) { this.cache.delete(entries[i]![0]!) }
     }
   }
 

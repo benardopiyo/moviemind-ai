@@ -76,7 +76,7 @@ class OMDBService {
   async getMovieByImdbId(imdbId: string): Promise<OMDBMovie> {
     const cacheKey = `omdb_movie_${imdbId}`
     const cached = cacheService.get<OMDBMovie>(cacheKey)
-    
+
     if (cached) {
       console.log('📦 Cache hit for OMDB movie:', imdbId)
       return cached
@@ -114,7 +114,7 @@ class OMDBService {
       totalResults: string
       Response: string
     }>(cacheKey)
-    
+
     if (cached) {
       return cached
     }
@@ -155,7 +155,7 @@ class OMDBService {
   getRottenTomatoesRating(movie: OMDBMovie): number {
     const rtRating = movie.Ratings?.find(r => r.Source === 'Rotten Tomatoes')
     if (!rtRating) return 0
-    
+
     const percentage = parseInt(rtRating.Value.replace('%', ''))
     return isNaN(percentage) ? 0 : percentage
   }

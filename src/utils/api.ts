@@ -7,7 +7,6 @@ import { ApiError } from '@/types/api'
 export function createApiError(
   status: number,
   message: string,
-  originalError?: Error
 ): ApiError {
   return {
     status_code: status,
@@ -62,7 +61,7 @@ export async function retryWithBackoff<T>(
       return await fn()
     } catch (error) {
       if (i === retries - 1) throw error
-      
+
       const delay = baseDelay * Math.pow(2, i)
       await new Promise(resolve => setTimeout(resolve, delay))
     }

@@ -1,8 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-import type { 
-  Movie, 
-  MovieDetails, 
-  Genre
+import type {
+  Movie,
+  MovieDetails,
+  Genre,
+  MovieCredits,
+  MovieVideos,
+  Review
 } from '@/types/movie'
 import type { PaginatedResponse } from '@/types/api'
 import { API_CONFIG, API_ENDPOINTS, IMAGE_SIZES } from '@/constants/api'
@@ -20,7 +23,6 @@ class TMDBService {
         api_key: API_CONFIG.TMDB.API_KEY,
       },
     })
-
     this.setupInterceptors()
   }
 
@@ -30,10 +32,7 @@ class TMDBService {
         console.log(`🎬 TMDB API Request: ${config.method?.toUpperCase()} ${config.url}`)
         return config
       },
-      (error) => {
-        console.error('🚨 TMDB Request Error:', error)
-        return Promise.reject(handleApiError(error))
-      }
+      (error) => Promise.reject(handleApiError(error))
     )
 
     this.api.interceptors.response.use(
@@ -41,34 +40,22 @@ class TMDBService {
         console.log(`✅ TMDB API Response: ${response.status} ${response.config.url}`)
         return response
       },
-      (error) => {
-        console.error('🚨 TMDB API Error:', error)
-        return Promise.reject(handleApiError(error))
-      }
+      (error) => Promise.reject(handleApiError(error))
     )
   }
 
   async searchMovies(query: string, page = 1): Promise<PaginatedResponse<Movie>> {
     const cacheKey = `search_movies_${query}_${page}`
     const cached = cacheService.get<PaginatedResponse<Movie>>(cacheKey)
-    
-    if (cached) {
-      console.log('📦 Cache hit for search:', query)
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
         return this.api.get<PaginatedResponse<Movie>>(API_ENDPOINTS.TMDB.SEARCH_MOVIES, {
-          params: { 
-            query, 
-            page, 
-            include_adult: false,
-            language: 'en-US'
-          }
+          params: { query, page, include_adult: false, language: 'en-US' }
         })
       })
-
       cacheService.set(cacheKey, response.data, 5 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -79,11 +66,8 @@ class TMDBService {
   async getMovieDetails(id: number): Promise<MovieDetails> {
     const cacheKey = `movie_details_${id}`
     const cached = cacheService.get<MovieDetails>(cacheKey)
-    
-    if (cached) {
-      console.log('📦 Cache hit for movie details:', id)
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
@@ -94,7 +78,6 @@ class TMDBService {
           }
         })
       })
-
       cacheService.set(cacheKey, response.data, 30 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -105,10 +88,8 @@ class TMDBService {
   async getTrendingMovies(timeWindow: 'day' | 'week' = 'week', page = 1): Promise<PaginatedResponse<Movie>> {
     const cacheKey = `trending_movies_${timeWindow}_${page}`
     const cached = cacheService.get<PaginatedResponse<Movie>>(cacheKey)
-    
-    if (cached) {
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
@@ -116,7 +97,6 @@ class TMDBService {
           params: { page, language: 'en-US' }
         })
       })
-
       cacheService.set(cacheKey, response.data, 15 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -127,10 +107,8 @@ class TMDBService {
   async getPopularMovies(page = 1): Promise<PaginatedResponse<Movie>> {
     const cacheKey = `popular_movies_${page}`
     const cached = cacheService.get<PaginatedResponse<Movie>>(cacheKey)
-    
-    if (cached) {
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
@@ -138,7 +116,6 @@ class TMDBService {
           params: { page, language: 'en-US' }
         })
       })
-
       cacheService.set(cacheKey, response.data, 15 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -149,10 +126,8 @@ class TMDBService {
   async getGenres(): Promise<{ genres: Genre[] }> {
     const cacheKey = 'movie_genres'
     const cached = cacheService.get<{ genres: Genre[] }>(cacheKey)
-    
-    if (cached) {
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
@@ -160,7 +135,6 @@ class TMDBService {
           params: { language: 'en-US' }
         })
       })
-
       cacheService.set(cacheKey, response.data, 24 * 60 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -177,10 +151,8 @@ class TMDBService {
     const { genre, year, sortBy = 'popularity.desc', page = 1 } = filters
     const cacheKey = `discover_movies_${JSON.stringify(filters)}`
     const cached = cacheService.get<PaginatedResponse<Movie>>(cacheKey)
-    
-    if (cached) {
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const params: any = {
@@ -194,11 +166,8 @@ class TMDBService {
       if (year) params.year = year
 
       const response = await retryWithBackoff(async () => {
-        return this.api.get<PaginatedResponse<Movie>>(API_ENDPOINTS.TMDB.DISCOVER, {
-          params
-        })
+        return this.api.get<PaginatedResponse<Movie>>(API_ENDPOINTS.TMDB.DISCOVER, { params })
       })
-
       cacheService.set(cacheKey, response.data, 10 * 60 * 1000)
       return response.data
     } catch (error) {
@@ -209,10 +178,8 @@ class TMDBService {
   async getSimilarMovies(id: number, page = 1): Promise<PaginatedResponse<Movie>> {
     const cacheKey = `similar_movies_${id}_${page}`
     const cached = cacheService.get<PaginatedResponse<Movie>>(cacheKey)
-    
-    if (cached) {
-      return cached
-    }
+
+    if (cached) return cached
 
     try {
       const response = await retryWithBackoff(async () => {
@@ -220,7 +187,57 @@ class TMDBService {
           params: { page, language: 'en-US' }
         })
       })
+      cacheService.set(cacheKey, response.data, 30 * 60 * 1000)
+      return response.data
+    } catch (error) {
+      throw handleApiError(error)
+    }
+  }
 
+  async getMovieCredits(movieId: number): Promise<MovieCredits> {
+    const cacheKey = `movie_credits_${movieId}`
+    const cached = cacheService.get<MovieCredits>(cacheKey)
+
+    if (cached) return cached
+
+    try {
+      const response = await retryWithBackoff(async () => {
+        return this.api.get<MovieCredits>(`${API_ENDPOINTS.TMDB.MOVIE_DETAILS}/${movieId}/credits`)
+      })
+      cacheService.set(cacheKey, response.data, 30 * 60 * 1000)
+      return response.data
+    } catch (error) {
+      throw handleApiError(error)
+    }
+  }
+
+  async getMovieReviews(movieId: number): Promise<PaginatedResponse<Review>> {
+    const cacheKey = `movie_reviews_${movieId}`
+    const cached = cacheService.get<PaginatedResponse<Review>>(cacheKey)
+
+    if (cached) return cached
+
+    try {
+      const response = await retryWithBackoff(async () => {
+        return this.api.get<PaginatedResponse<Review>>(`${API_ENDPOINTS.TMDB.MOVIE_DETAILS}/${movieId}/reviews`)
+      })
+      cacheService.set(cacheKey, response.data, 30 * 60 * 1000)
+      return response.data
+    } catch (error) {
+      throw handleApiError(error)
+    }
+  }
+
+  async getMovieVideos(movieId: number): Promise<MovieVideos> {
+    const cacheKey = `movie_videos_${movieId}`
+    const cached = cacheService.get<MovieVideos>(cacheKey)
+
+    if (cached) return cached
+
+    try {
+      const response = await retryWithBackoff(async () => {
+        return this.api.get<MovieVideos>(`${API_ENDPOINTS.TMDB.MOVIE_DETAILS}/${movieId}/videos`)
+      })
       cacheService.set(cacheKey, response.data, 30 * 60 * 1000)
       return response.data
     } catch (error) {

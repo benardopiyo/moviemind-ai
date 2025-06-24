@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { ROUTES, NAVIGATION_ITEMS } from '@/constants/routes'
+import { NAVIGATION_ITEMS } from '@/constants/routes'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { cn } from '@/utils/helpers'
 

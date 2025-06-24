@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export function formatDate(dateString: string): string {
   if (!dateString) return 'Unknown'
-  
+
   try {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', {
@@ -32,13 +32,13 @@ export function formatDate(dateString: string): string {
  */
 export function formatRuntime(minutes: number): string {
   if (!minutes || minutes <= 0) return 'Unknown'
-  
+
   const hours = Math.floor(minutes / 60)
   const remainingMinutes = minutes % 60
-  
+
   if (hours === 0) return `${remainingMinutes}m`
   if (remainingMinutes === 0) return `${hours}h`
-  
+
   return `${hours}h ${remainingMinutes}m`
 }
 
@@ -65,7 +65,7 @@ export function formatNumber(num: number): string {
  */
 export function formatCurrency(amount: number): string {
   if (!amount || amount <= 0) return 'Unknown'
-  
+
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',

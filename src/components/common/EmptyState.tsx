@@ -1,5 +1,5 @@
-import { cn } from "@/utils/helpers"
 // ===== src/components/common/EmptyState.tsx =====
+import { cn } from "@/utils/helpers"
 import React from 'react'
 import { Search, Film, Frown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -52,7 +52,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
           <Icon className="w-8 h-8 text-gray-400 dark:text-gray-600" />
         </div>
-        
+
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {config.title}

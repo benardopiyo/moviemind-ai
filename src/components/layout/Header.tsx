@@ -1,6 +1,6 @@
 // ===== src/components/layout/Header.tsx =====
 import React, { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import { Search, Menu, Film, Settings, Moon, Sun, User } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -14,7 +14,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const navigate = useNavigate()
-  const location = useLocation()
+  
   const [searchQuery, setSearchQuery] = useState('')
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', false)
   const debouncedSearch = useDebounce(searchQuery, 300)
