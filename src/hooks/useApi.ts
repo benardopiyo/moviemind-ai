@@ -17,12 +17,12 @@ interface UseApiOptions {
 export function useApi<T>(
   apiCall: () => Promise<T>,
   options: UseApiOptions = {}
-): UseApiState<T> & { 
+): UseApiState<T> & {
   refetch: () => Promise<void>
   reset: () => void
 } {
   const { immediate = true, deps = [], onSuccess, onError } = options
-  
+
   const [state, setState] = useState<UseApiState<T>>({
     data: null,
     loading: false,
@@ -31,7 +31,7 @@ export function useApi<T>(
 
   const execute = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }))
-    
+
     try {
       const result = await apiCall()
       setState({ data: result, loading: false, error: null })

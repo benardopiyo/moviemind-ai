@@ -1,50 +1,50 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { cn } from '@/utils/helpers'
 
-interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   className?: string
   hover?: boolean
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
-  variant?: 'default' | 'elevated' | 'outline'
-  onClick?: () => void
+  padding?: 'none' | 'sm' | 'md' | 'lg'
+  variant?: 'default' | 'outlined' | 'elevated'
 }
 
-export const Card: React.FC<CardProps> = ({
+export const Card = forwardRef<HTMLDivElement, CardProps>(({
   children,
   className,
   hover = false,
   padding = 'md',
   variant = 'default',
-  onClick,
-}) => {
+  ...props
+}, ref) => {
   const paddingClasses = {
     none: '',
     sm: 'p-3',
     md: 'p-4',
     lg: 'p-6',
-    xl: 'p-8',
   }
 
-  const variants = {
+  const variantClasses = {
     default: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
-    elevated: 'bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700',
-    outline: 'bg-transparent border-2 border-gray-200 dark:border-gray-700',
+    outlined: 'bg-transparent border-2 border-gray-200 dark:border-gray-700',
+    elevated: 'bg-white dark:bg-gray-800 shadow-lg border-0',
   }
 
   return (
     <div
+      ref={ref}
       className={cn(
-        'rounded-xl transition-all duration-200',
-        variants[variant],
-        hover && 'hover:shadow-md hover:scale-[1.02] cursor-pointer',
+        'rounded-lg transition-all duration-200',
+        variantClasses[variant],
         paddingClasses[padding],
-        onClick && 'cursor-pointer',
+        hover && 'hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 cursor-pointer',
         className
       )}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </div>
   )
-}
+})
+
+Card.displayName = 'Card'

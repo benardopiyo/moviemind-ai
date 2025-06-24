@@ -10,7 +10,6 @@ interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = ({
   size = 'md',
-  variant = 'spinner',
   className,
   text,
 }) => {

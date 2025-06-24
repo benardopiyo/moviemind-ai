@@ -27,12 +27,12 @@ export function useInfiniteScroll(
 
   const lastElementRef = useCallback((node: HTMLElement | null) => {
     if (isFetching || !enabled || !hasMore) return
-    
+
     if (observer.current) observer.current.disconnect()
-    
+
     observer.current = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting && hasMore && !isFetching) {
+        if (entries && entries[0]?.isIntersecting && hasMore && !isFetching) {
           setIsFetching(true)
           fetchMore().finally(() => setIsFetching(false))
         }
@@ -42,7 +42,7 @@ export function useInfiniteScroll(
         rootMargin,
       }
     )
-    
+
     if (node) observer.current.observe(node)
   }, [isFetching, hasMore, enabled, threshold, rootMargin, fetchMore])
 

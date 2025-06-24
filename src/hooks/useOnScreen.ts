@@ -15,7 +15,7 @@ export function useOnScreen(
     if (!element) return
 
     const observer = new IntersectionObserver(([entry]) => {
-      setIsOnScreen(entry.isIntersecting)
+      setIsOnScreen(entry?.isIntersecting || false)
     }, options)
 
     observer.observe(element)

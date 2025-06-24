@@ -1,5 +1,5 @@
 // ===== src/hooks/useLocalStorage.ts =====
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { Storage } from '@/utils/storage'
 
 /**
@@ -25,10 +25,10 @@ export function useLocalStorage<T>(
     try {
       // Allow value to be a function so we have the same API as useState
       const valueToStore = value instanceof Function ? value(storedValue) : value
-      
+
       // Save state
       setStoredValue(valueToStore)
-      
+
       // Save to localStorage
       Storage.set(key, valueToStore)
     } catch (error) {
