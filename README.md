@@ -7,77 +7,109 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen)
 
+
+## 📚 Table of Contents
+- [Live Demo](#-live-demo)
+- [Screenshots](#-screenshots)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Feature Highlights](#-feature-highlights)
+- [Performance Features](#-performance-features)
+- [Design System](#-design-system)
+- [Quality Assurance](#-quality-assurance)
+- [Technical Metrics](#-technical-metrics)
+- [Deployment](#-deployment)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+
+
 ## 📱 Live Demo
 
 **Development Server**: `http://localhost:3000`
 
 ## 📸 Screenshots
 
-### 🏠 Dashboard & Home Page
-![Home Dashboard](./docs/screenshots/home-dashboard.png)
-*Modern dashboard featuring trending movies, personalized recommendations, and quick access to all features*
+### 1. Dashboard & Home Page
 
-![Trending Section](./docs/screenshots/trending-section.png)
-*Real-time trending movies and TV shows with beautiful card layouts*
+<div align="left">
+  <table>
+    <tr>
+      <td align="center"><b>Dark Mode</b></td>
+      <td align="center"><b>Light Mode</b></td>
+    </tr>
+    <tr>
+      <td>
+        <img src="src/assets/images/movieai_home_dark.png" alt="Home - Dark Mode" width="300"/>
+      </td>
+      <td>
+        <img src="src/assets/images/movieai_home_light.png" alt="Home - Light Mode" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### 🔍 Search & Discovery
-![Search Interface](./docs/screenshots/search-interface.png)
-*Intelligent search with real-time results and advanced filtering options*
 
-![Search Results](./docs/screenshots/search-results.png)
-*Comprehensive search results with infinite scroll and detailed movie information*
+### 2. Trending Movies
 
-![Genre Filtering](./docs/screenshots/genre-filtering.png)
-*Genre-based filtering with visual category cards for easy browsing*
+<div align="left">
+  <table>
+    <tr>
+      <td align="center"><b>Dark Mode</b></td>
+      <td align="center"><b>Light Mode</b></td>
+    </tr>
+    <tr>
+      <td>
+        <img src="src/assets/images/movieai_trending_dark.png" alt="Trending - Dark Mode" width="300"/>
+      </td>
+      <td>
+        <img src="src/assets/images/movieai_trending_light.png" alt="Trending - Light Mode" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### 🎬 Movie Details
-![Movie Details Hero](./docs/screenshots/movie-details-hero.png)
-*Stunning movie details page with backdrop imagery and comprehensive information*
 
-![Cast and Crew](./docs/screenshots/cast-crew.png)
-*Professional cast and crew section with detailed information and photos*
+### 3. Watch List
 
-![Trailers Section](./docs/screenshots/trailers-section.png)
-*Integrated YouTube trailers with modal player for immersive viewing*
+<div align="left">
+  <table>
+    <tr>
+      <td align="center"><b>Dark Mode</b></td>
+      <td align="center"><b>Light Mode</b></td>
+    </tr>
+    <tr>
+      <td>
+        <img src="src/assets/images/movieai_watchlist_dark.png" alt="Watchlist - Dark Mode" width="300"/>
+      </td>
+      <td>
+        <img src="src/assets/images/movieai_watchlist_light.png" alt="Watchlist - Light Mode" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### 📚 Watchlist Management
-![Watchlist Overview](./docs/screenshots/watchlist-overview.png)
-*Advanced watchlist management with four distinct categories*
+### 4. Movie Statistics
 
-![Drag and Drop](./docs/screenshots/drag-drop-demo.png)
-*Intuitive drag-and-drop interface for organizing movies between categories*
+<div align="left">
+  <table>
+    <tr>
+      <td align="center"><b>Dark Mode</b></td>
+      <td align="center"><b>Light Mode</b></td>
+    </tr>
+    <tr>
+      <td>
+        <img src="src/assets/images/movieai_stats_dark.png" alt="Statistics - Dark Mode" width="300"/>
+      </td>
+      <td>
+        <img src="src/assets/images/movieai_stats_light.png" alt="Statistics - Light Mode" width="300"/>
+      </td>
+    </tr>
+  </table>
+</div>
 
-![Personal Ratings](./docs/screenshots/personal-ratings.png)
-*Personal rating system with 10-star precision and custom notes*
 
-![Priority System](./docs/screenshots/priority-system.png)
-*Priority levels with color coding for better organization*
-
-### 📊 Analytics Dashboard
-![Analytics Overview](./docs/screenshots/analytics-overview.png)
-*Comprehensive analytics dashboard with visual insights and statistics*
-
-![Genre Analysis](./docs/screenshots/genre-analysis.png)
-*Genre preference analysis with interactive pie charts and distributions*
-
-![Viewing Statistics](./docs/screenshots/viewing-statistics.png)
-*Detailed viewing patterns, streaks, and achievement tracking*
-
-![Monthly Trends](./docs/screenshots/monthly-trends.png)
-*Monthly viewing trends and progress tracking over time*
-
-### 🎨 Theme & Responsive Design
-![Dark Theme](./docs/screenshots/dark-theme.png)
-*Professional dark theme with smooth transitions and consistent styling*
-
-![Light Theme](./docs/screenshots/light-theme.png)
-*Clean light theme optimized for readability and accessibility*
-
-![Mobile Responsive](./docs/screenshots/mobile-responsive.png)
-*Perfect mobile experience with responsive design across all screen sizes*
-
-![Tablet View](./docs/screenshots/tablet-view.png)
-*Optimized tablet layout maintaining full functionality and beautiful design*
 
 ## 🌟 Key Features
 
@@ -112,6 +144,9 @@
 - **High-quality Images** with backdrop galleries
 
 ## 🛠️ Tech Stack
+
+**Backend**
+- **Node.js** for backend logic and API routing
 
 **Frontend Framework**
 - React 18.2.0 with TypeScript 5.0+
@@ -205,7 +240,7 @@ npm run preview
 
 ```
 src/
-├── components/           # Reusable UI components
+├── components/          # Reusable UI components
 │   ├── common/          # Shared components (MovieCard, Rating, etc.)
 │   ├── layout/          # Layout components (Header, Sidebar, Footer)
 │   └── ui/              # Base UI components (Button, Card, Modal)
@@ -220,7 +255,7 @@ src/
 │   ├── useApi.ts        # API integration hook
 │   ├── useDebounce.ts   # Search debouncing
 │   ├── useInfiniteScroll.ts # Pagination handling
-│   └── ...             # Additional utility hooks
+│   └── ...              # Additional utility hooks
 │
 ├── services/            # External service integration
 │   ├── tmdb.ts         # TMDB API service
@@ -235,7 +270,7 @@ src/
 │   ├── movie.ts        # Movie and TV show types
 │   ├── api.ts          # API response types
 │   ├── user.ts         # User and preferences types
-│   └── ...            # Additional type definitions
+│   └── ...             # Additional type definitions
 │
 ├── utils/              # Utility functions
 │   ├── api.ts          # API helpers
@@ -340,22 +375,8 @@ npm run build
 - Minified and gzipped for production
 - Service Worker ready for PWA features
 
-## 🤝 Contributing
 
-This project follows a feature-branch workflow:
-
-```bash
-# Create feature branch
-git checkout -b feature/your-feature-name
-
-# Make commits with descriptive messages
-git commit -m "Add comprehensive search filtering functionality"
-
-# Push and create pull request
-git push origin feature/your-feature-name
-```
-
-### Current Branches
+### Branches
 - `main` - Production ready code
 - `develop` - Development integration
 - `feature/search-and-discovery` - Search and discovery features
@@ -374,6 +395,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**Built with ❤️ for movie enthusiasts**
+**Built by Opiyo Benard for movie enthusiasts**
 
 *Experience intelligent movie discovery with professional-grade features*
